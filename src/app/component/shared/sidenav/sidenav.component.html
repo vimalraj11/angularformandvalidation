@@ -1,0 +1,54 @@
+<div class="sidebar"
+  [ngClass]="[sidemenuHideShow ? 'mobile-view-show':'mobile-view-hide',isExpanded || !sidemenuHideShow ? 'isExpanded' : 'isnotExpanded']">
+  <nav class="header">
+  </nav>
+  <div [ngClass]="isExpanded || !sidemenuHideShow ?'user-profile':'user-profile-show'">
+    <div class="display-avatar animated-avatar" (click)="onProfileClick()">
+      <img class="user-logo" [src]="userlogo ? userlogo : defaultImage" />
+    </div>
+    <div class="info-wrapper" (click)="onProfileClick()">
+      <p class="user-name nav-color">{{firstName}}</p>
+    </div>
+  </div>
+  <ul class="navigation-menu">
+    <li class="active-link" *ngFor="let menu of menus">
+      <div *ngIf="menu.link != ''; else elseBlock" class="sideNavitems">
+        <a [routerLink]="menu.link" routerLinkActive="active" class="nav-color" (click)="OnsideNavshow(menu)">
+          <mat-icon class="link-icon" color="primary">{{menu.icon}}</mat-icon>
+          <span class="link-title" *ngIf="isExpanded || !sidemenuHideShow">{{menu.name}}</span>
+        </a>
+      </div>
+      <ng-template #elseBlock>
+        <div class="sideNavitems">
+          <a data-toggle="collapse" aria-expanded="false" (click)="mouseClick(menu)" class="nav-color">
+            <mat-icon class="link-icon" color="primary">{{menu.icon}}</mat-icon>
+            <span class="link-title" *ngIf="isExpanded || !sidemenuHideShow">{{menu.name}}</span>
+            <mat-icon fontSet="material-icons-outlined" [ngClass]="[isExpanded ? 'right-arrow' : 'left-arrow']">
+              {{menu['isExpanded'] && isExpanded?
+              'keyboard_arrow_down' : 'chevron_right'}}
+            </mat-icon>
+          </a>
+          <div *ngFor="let submenus of menu.childMenu;let i=index">
+            <ul class="collapse navigation-submenu" *ngIf="menu['isExpanded']">
+              <li *ngIf="isExpanded">
+                <a (click)="OnsideNavshow(menu)" [routerLink]="submenus.link" routerLinkActive="link-active"
+                  target="_self" class="nav-color">{{submenus.name}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li>
+      <a (click)="signOut()">
+        <mat-icon class="link-icon" color="primary">login</mat-icon>
+        <span class="link-title nav-color" *ngIf="isExpanded || !sidemenuHideShow">Logout</span>
+      </a>
+    </li>
+    <li><a [routerLink]="['/testform']">Form</a></li>
+    <div class="toggle-expand" (click)="toggleNavExpand()">
+      <mat-icon *ngIf="isExpanded" class="arrow-left"> chevron_left</mat-icon>
+      <mat-icon *ngIf="!isExpanded" class="arrow-right"> chevron_right </mat-icon>
+    </div>
+  </ul>
+</div>

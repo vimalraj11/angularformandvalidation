@@ -1,0 +1,96 @@
+<section class="filter">
+  <mat-form-field class="filter">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+  </mat-form-field>
+</section>
+
+<table mat-table [dataSource]="tableData" class="table" matSort (matSortChange)="onSortData($event)">
+  <!-- Actions cell -->
+  <ng-container matColumnDef="actions" *ngIf="tableConfig?.actions">
+    <th class="action-header-cell" mat-header-cell *matHeaderCellDef>Action</th>
+    <td class="actions-cell" mat-cell *matCellDef="let element">
+      <div class="actions-wrap" *ngIf="!showActionsMenu()">
+        <mat-icon color="primary" *ngIf="tableConfig?.actions.edit && !userViewAccess" fontSet="material-icons-outlined"
+          Ï class="action-icon edit-icon" (click)="tableEventHandler('edit-action', element)" matTooltip="Edit">edit
+        </mat-icon>
+        <mat-icon color="primary" *ngIf="tableConfig?.actions.open" fontSet="material-icons-outlined"
+          class="action-icon open-icon" (click)="tableEventHandler('open-action', element)" matTooltip="Open">
+          open_with</mat-icon>
+        <mat-icon color="primary" *ngIf="tableConfig?.actions.delete" fontSet="material-icons-outlined"
+          class="action-icon delete-icon" (click)="tableEventHandler('delete-action', element)" matTooltip="Delete">
+          delete
+        </mat-icon>
+        <mat-icon color="primary" *ngIf="tableConfig?.actions.assignroles" fontSet="material-icons-outlined"
+          class="action-icon assignroles-icon" (click)="tableEventHandler('assignroles-action', element)"
+          matTooltip="AssignRoles">supervisor_account</mat-icon>
+
+        <span *ngIf="tableConfig?.actions.contractEdit && element['userContractAccess']"
+          (click)="tableEventHandler('edit-action', element)" class="contract-form text" matTooltip="Contract Form"
+          matTooltipPosition="right">CF</span>
+        <span *ngIf="tableConfig?.actions.contractPlan && element['userContractAccess']"
+          (click)="tableEventHandler('contractPlan-action', element)" class="contract-Plan text"
+          matTooltip="Contract Plan" matTooltipPosition="right">CP</span>
+        <span *ngIf="tableConfig?.actions.addDocument" (click)="tableEventHandler('addDocument-action', element)"
+          class="document-Status text" matTooltip="Document Status" matTooltipPosition="right">DS</span>
+        <span *ngIf="tableConfig?.actions.engineeringStatus && element['userContractAccess']"
+          (click)="tableEventHandler('engineeringStatus-action', element)" class="engineering-Status text"
+          matTooltip="Engineering Status" matTooltipPosition="right">ES</span>
+        <span *ngIf="tableConfig?.actions.procurementStatus && element['userContractAccess']"
+          (click)="tableEventHandler('procurementStatus-action', element)" class="procurement-Status text"
+          matTooltip="Procurement Status" matTooltipPosition="right">PRS</span>
+        <span *ngIf="tableConfig?.actions.productionStatus && element['userContractAccess']"
+          class="production-Status text" (click)="tableEventHandler('production-status-action', element)"
+          matTooltip="Production Status text" matTooltipPosition="right">PDS</span>
+        <span *ngIf="tableConfig?.actions.dispatchStatus" class="dispatch-Status text"
+          (click)="tableEventHandler('dispatchStatus-action', element)"
+          matTooltip="Assembly, Testing and Dispatch Status" matTooltipPosition="right">ADS</span>
+      </div>
+      <div class="actions-menu" *ngIf="showActionsMenu()">
+        <app-actions-menu (actionClick)="tableEventHandler($event, element)" [actionsConfig]="tableConfig?.actions"
+          [element]="element"></app-actions-menu>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Main columns and rows -->
+  <ng-container [matColumnDef]="column.title" *ngFor="let column of displayedColumns">
+    <th mat-header-cell *matHeaderCellDef class="table-head-cell" [disabled]="!column.sortable"
+      [mat-sort-header]="column.field"> {{column.responsiveFlag ? column.responsiveTitle : column.title}} </th>
+    <td mat-cell *matCellDef="let element" [ngClass]="column.classes">
+      <span
+        *ngIf="!column.responsiveFlag && !column.type && column.type !== 'image' && column.type !== 'date' && column.type !== 'color' && column.type !== 'obj'"
+        [matTooltip]="element[column.field]">
+        {{element[column.field]}}
+      </span>
+      <span *ngIf="column.type == 'obj'">
+        <span *ngFor="let ele of element[column.field]">
+          {{ele[column.key]}} <span *ngIf="element[column.field].length-1">,</span>
+        </span>
+      </span>
+      <span *ngIf="!column.responsiveFlag && column.type === 'date'" [matTooltip]="element[column.field]">
+        {{(element[column.field] | date:'MM/dd/yyyy')}}
+      </span>
+      <span *ngIf="!column.responsiveFlag && column.type === 'color'" [matTooltip]="element[column.field]">
+        <i [ngStyle]="{'color': element[column.field] }">{{element[column.field]}}</i>
+      </span>
+      <span *ngIf="!column.responsiveFlag && column.type === 'password'" [matTooltip]="element[column.field]">
+        {{'*********'}}
+      </span>
+      <span *ngIf="!column.responsiveFlag && column.type === 'state'" [matTooltip]="element[column.field]">
+        <span [ngStyle]="{'background-color': element[column.color]}" class="dot"></span>&nbsp;{{element[column.field]}}
+      </span>
+      <span *ngIf="!column.responsiveFlag && column.type === 'checkbox'" [matTooltip]="element[column.field]">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? handleSelectChange(element) : null"
+          [checked]="selection.isSelected(element)">{{element[column.field]}}</mat-checkbox>
+      </span>
+      <span *ngIf="column.responsiveFlag">
+        <span class="block" *ngFor="let f of column.field">{{f.title}} : {{element[f.field]}}</span>
+      </span>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true" class="header-row-definition"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" class="row-definition"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

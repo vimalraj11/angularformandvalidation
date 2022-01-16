@@ -1,0 +1,11 @@
+<div class="user">
+  <h5>SOURCE:</h5><br>
+  <p *ngFor="let user of source">{{ user.name }}</p>
+  <hr>
+  <button (click)="changeCopy()">Change Copy</button>
+</div>
+<br>
+<hr>
+
+<button type="button" (click)="subscribe1()">Test1</button>
+<button type="button" (click)="subscribe2()">Test2</button>

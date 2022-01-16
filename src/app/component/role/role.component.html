@@ -1,0 +1,23 @@
+<div>
+  <div class="flex">
+    <h3><span class="mat-title-text">Role</span></h3>
+    <div class="right-align">
+      <button *ngIf="!showButton" mat-raised-button (click)="showToggleBtn()" (click)="accordion.openAll()">Expand
+      </button>
+      <button *ngIf="showButton" mat-raised-button (click)="showToggleBtn()" (click)="accordion.closeAll()">Collapse
+      </button>
+    </div>
+  </div>
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel expanded="false">
+      <mat-expansion-panel-header (click)="showToggleBtn()">
+        <mat-panel-title>
+          <label class="mat-title-text">Role Form</label>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-dynamic-form [inputControls]="inputControls" (formSubmit)="handleFormSubmit($event)"></app-dynamic-form>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <app-data-table [tableData]="roles | async" [allColumns]="columns" [tableConfig]="tableConfig"
+    (tableEvent)="handleTableEvent($event)"></app-data-table>
+</div>

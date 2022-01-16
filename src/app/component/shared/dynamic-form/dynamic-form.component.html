@@ -1,0 +1,36 @@
+<div class="dynamic-form-section">
+  <div *ngIf="toShowExpansionPanel" class="action-buttons">
+    <button *ngIf="!showButton" mat-raised-button (click)="showToggleBtn()" (click)="accordion.openAll()">Expand
+      All</button>
+    <button *ngIf="showButton" mat-raised-button (click)="showToggleBtn()" (click)="accordion.closeAll()">Collapse
+      All</button>
+  </div>
+
+  <div class="dynamic-form">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="new-password">
+      <div>
+        <section class="input-container">
+          <div class="input-containerDetail">
+            <div *ngFor="let inputControl of inputControls" [hidden]="inputControl.type==='hidden'" class="input-item"
+              [ngClass]="inputControl.cssClass">
+              <app-dynamic-form-control [inputControl]="inputControl" [form]="form"
+                (uploadedFile)="selectedFile($event)" [submitted]="submitted" [resetValue]="resetValue">
+              </app-dynamic-form-control>
+            </div>
+            <div class="full-width" *ngIf="inlineEditTable">
+              <app-edit-data-table [editedData]="inputControls"></app-edit-data-table>
+              <br />
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="button-container">
+        <button mat-raised-button color="primary" *ngIf="!updatedvalue">Save</button> &nbsp;
+        <button mat-raised-button color="primary" *ngIf="updatedvalue">Update</button> &nbsp;
+        <button mat-raised-button color="primary" type="reset" *ngIf="!resetpwd" (click)="reset()">Reset</button>
+        <button mat-raised-button color="primary" mat-dialog-close *ngIf="resetpwd">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

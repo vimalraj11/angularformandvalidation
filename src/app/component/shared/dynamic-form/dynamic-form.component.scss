@@ -1,0 +1,62 @@
+@import "../../../../../src/assets/themes/global-themes.scss";
+
+.reset-password span {
+  color: $blue-color;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.button-container {
+  text-align: right;
+  margin-top: 13px;
+}
+
+@media #{$tabletSm} {
+  .input-containerDetail {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .input-item {
+      width: 45%;
+
+      &.is-invalid {
+        border-color: $error-color;
+        box-shadow: 0px 0px 3px 1px $error-color;
+      }
+    }
+  }
+
+  .input-item.col-3.contact-number-code {
+    width: 11%;
+  }
+
+  .input-item.col-3.contact-number-contact {
+    width: 44%;
+    float: left;
+    text-align: left;
+    display: flex;
+    padding-top: 20px;
+
+    app-dynamic-form-control {
+      width: 78%;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .input-item.col-3.contact-number-code {
+    width: 11%;
+    display: inline-block;
+  }
+
+  .input-item.col-3.contact-number-contact {
+    width: 70%;
+    float: right;
+    padding-top: 20px;
+
+    app-dynamic-form-control {
+      width: 78%;
+    }
+  }
+}

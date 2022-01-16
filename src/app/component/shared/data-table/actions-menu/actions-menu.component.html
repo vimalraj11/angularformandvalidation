@@ -1,0 +1,52 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" class="actions-menu">
+  <mat-icon fontSet="material-icons-outlined">more_horiz</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button *ngIf="actionsConfig.edit" mat-menu-item class="action-menu-option" (click)="handleClick('edit-action')">
+    <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+    <span>Edit</span>
+  </button>
+  <button *ngIf="actionsConfig.open" mat-menu-item class="action-menu-option" (click)="handleClick('open-action')">
+    <mat-icon fontSet="material-icons-outlined">open_with</mat-icon>
+    <span>Open</span>
+  </button>
+  <button *ngIf="actionsConfig.delete" mat-menu-item class="action-menu-option" (click)="handleClick('delete-action')">
+    <mat-icon fontSet="material-icons-outlined">delete</mat-icon>
+    <span>Delete</span>
+  </button>
+  <button *ngIf="actionsConfig.assignroles" mat-menu-item class="action-menu-option"
+    (click)="handleClick('assignroles-action')">
+    <mat-icon fontSet="material-icons-outlined">supervisor_account</mat-icon>
+    <span>Assign Roles</span>
+  </button>
+  <button *ngIf="actionsConfig.contractPlan" mat-menu-item class="action-menu-option"
+    (click)="handleClick('contractPlan-action')">
+    <mat-icon fontSet="material-icons-outlined">file_copy</mat-icon>
+    <span>Contract Planning</span>
+  </button>
+  <button *ngIf="actionsConfig.addDocument" mat-menu-item class="action-menu-option"
+    (click)="handleClick('addDocument-action')">
+    <mat-icon fontSet="material-icons-outlined">description</mat-icon>
+    <span>Document Status</span>
+  </button>
+  <button *ngIf="actionsConfig.engineeringStatus" mat-menu-item class="action-menu-option"
+    (click)="handleClick('engineeringStatus-action')">
+    <mat-icon fontSet="material-icons-outlined">article</mat-icon>
+    <span>Engineering Status</span>
+  </button>
+  <button *ngIf="actionsConfig.procurementStatus" mat-menu-item class="action-menu-option"
+    (click)="handleClick('procurementStatus-action')">
+    <mat-icon fontSet="material-icons-outlined">library_books</mat-icon>
+    <span>Procurement Status</span>
+  </button>
+  <button *ngIf="actionsConfig.productionStatus" mat-menu-item class="action-menu-option"
+    (click)="handleClick('production-status-action')">
+    <mat-icon fontSet="material-icons-outlined">text_snippet</mat-icon>
+    <span>Production Status</span>
+  </button>
+  <button *ngIf="actionsConfig.dispatchStatus" mat-menu-item class="action-menu-option"
+    (click)="handleClick('dispatchStatus-action')">
+    <mat-icon fontSet="material-icons-outlined">analytics</mat-icon>
+    <span>Dispatch Status</span>
+  </button>
+</mat-menu>

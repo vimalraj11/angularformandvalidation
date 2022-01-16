@@ -1,0 +1,10 @@
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header (click)="showToggleBtn()">
+      <mat-panel-title>
+        <label class="mat-title-text">Test Form</label>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-dynamic-form [inputControls]="inputControls" (formSubmit)="handleFormSubmit($event)"></app-dynamic-form>
+  </mat-expansion-panel>
+</mat-accordion>
