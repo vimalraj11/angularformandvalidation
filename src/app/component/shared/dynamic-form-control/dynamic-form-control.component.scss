@@ -1,0 +1,275 @@
+@import "../../../../../src/assets/themes/global-themes.scss";
+
+.flex {
+  align-items: center;
+  display: flex;
+}
+
+.form-grid {
+  .input-wrapper {
+    .passwords {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      .icon-passwords {
+        position: absolute;
+        right: 21px;
+        top: 7px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  input[type="date"],
+  textarea {
+    width: -webkit-fill-available;
+    display: block;
+    height: 20px;
+    padding: 5px 10px;
+    line-height: 1.5;
+    color: $black;
+    background-clip: padding-box;
+    border: 1px solid $border-color;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    &.is-invalid {
+      border-color: $error-color;
+      box-shadow: 0 0 0px $error-color;
+    }
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: $focus-border-color;
+    box-shadow: 0px 0px 3px 1px $focus-shadow-color;
+  }
+
+  input[type="text"]:focus {
+    outline: none;
+  }
+
+  input:read-only,
+  input:disabled {
+    background: $disabled;
+  }
+
+  textarea {
+    height: auto;
+    resize: none;
+  }
+
+  .password {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .input-wrapper {
+    margin-top: 5px;
+
+    .mat-select {
+      display: inline-block;
+      width: 100%;
+      outline: none;
+      width: -webkit-fill-available;
+      display: block;
+      height: 20px;
+      padding: 5px 10px;
+      background-clip: padding-box;
+      border: 1px solid $border-color;
+      border-radius: 0.25rem;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      line-height: 1.5;
+      color: $black;
+    }
+
+    .mat-select:focus {
+      border-color: $focus-border-color;
+      box-shadow: 0px 0px 3px 1px $focus-shadow-color;
+    }
+  }
+
+  ::ng-deep .input-wrapper {
+    .dateMat {
+      height: 40px;
+    }
+
+    input:read-only,
+    textarea:read-only {
+      background: $disabled;
+    }
+
+    .mat-select-disabled {
+      background: $disabled;
+    }
+
+    .mat-form-field-appearance-legacy {
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+
+      .mat-form-field-underline {
+        background-color: $disabled;
+        height: 0px;
+      }
+
+      .mat-form-field-infix {
+        top: -15px;
+      }
+
+      .mat-input-element.dateField {
+        width: 100%;
+        display: block;
+        height: 20px;
+        padding: 5px 10px;
+        line-height: 1.5;
+        color: $black;
+        background-clip: padding-box;
+        border: 1px solid $border-color;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        background-color: transparent;
+
+        &.is-invalid {
+          border-color: $border-color;
+          box-shadow: 0 0 0px $error-color;
+        }
+
+        &:disabled {
+          background: $disabled;
+        }
+
+        &:focus {
+          border-color: $focus-border-color;
+          box-shadow: 0px 0px 3px 1px $focus-shadow-color;
+        }
+      }
+
+      .mat-form-field.mat-focused .mat-form-field-ripple {
+        background-color: transparent;
+        height: 0px;
+      }
+
+      ::ng-deep .input-wrapper {
+        .mat-form-field-appearance-legacy {
+          .mat-form-field-wrapper {
+            padding-bottom: 0;
+          }
+
+          .mat-form-field-underline {
+            background-color: $disabled;
+            height: 0px;
+            width: 45px;
+          }
+        }
+      }
+
+      .mat-form-field-infix {
+        top: -15px;
+        width: 240px;
+      }
+
+      .mat-input-element.dateField {
+        width: -webkit-fill-available;
+        display: block;
+        height: 20px;
+        padding: 5px 10px;
+        line-height: 1.5;
+        color: $black;
+        background-clip: padding-box;
+        border: 1px solid $border-color;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        background-color: transparent;
+
+        &.is-invalid {
+          border-color: $error-color;
+          box-shadow: 0 0 0px $error-color;
+        }
+
+        &:disabled {
+          background: $disabled;
+        }
+      }
+
+      .mat-form-field.mat-focused .mat-form-field-ripple {
+        background-color: transparent;
+        height: 0px;
+      }
+
+      .mat-form-field-flex {
+        align-items: start;
+      }
+
+      .mat-form-field-suffix {
+        left: -35px;
+        top: 7px;
+      }
+    }
+
+    .mat-form-field-flex {
+      align-items: start;
+    }
+
+    .mat-form-field-suffix {
+      left: -10px;
+      top: 7px;
+    }
+  }
+
+  .is-invalid {
+    border-color: $error-color;
+    box-shadow: 0 0 0px $error-color;
+  }
+}
+
+input.uploadpocopy {
+  opacity: 0;
+  width: 100%;
+  display: none;
+}
+
+.file {
+  position: relative;
+  cursor: pointer;
+
+  .upload-btn {
+    display: flex;
+    top: 0;
+    justify-content: center;
+    width: 100%;
+    border-radius: 4px;
+    background-color: $theme-color;
+    background-clip: padding-box;
+    border: 1px solid $theme-color;
+    padding: 8px 0px 4px 0px;
+    color: $white;
+    align-items: center;
+    mat-icon {
+      color: $white;
+    }
+  }
+}
+
+.contact {
+  display: flex;
+
+  .mat-select {
+    width: 80%;
+    min-width: 50px;
+    padding: 3px 5px;
+  }
+}
+
+.dateMat {
+  width: fit-content;
+}

@@ -1,0 +1,67 @@
+@import "../../../../../src/assets/themes/global-themes.scss";
+
+.filter {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+.table {
+  width: 100%;
+  .block {
+    display: block;
+    padding: 5px 0px;
+  }
+
+  .capitalized {
+    text-transform: uppercase;
+  }
+
+  .actions-wrap {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    .action-icon {
+      cursor: pointer;
+      margin: 0 5px;
+    }
+  }
+
+  span.mat-tooltip-trigger.contract-form.text,
+  span.mat-tooltip-trigger.contract-Plan.text,
+  span.mat-tooltip-trigger.document-Status.text,
+  span.mat-tooltip-trigger.engineering-Status.text,
+  span.mat-tooltip-trigger.production-Status.text,
+  span.mat-tooltip-trigger.procurement-Status.text,
+  span.mat-tooltip-trigger.dispatch-Status.text {
+    padding-right: 8px;
+  }
+
+  ::ng-deep .text {
+    margin-right: 4px;
+    cursor: pointer;
+    padding: 8px;
+    margin: 3px;
+    border-radius: 100%;
+    width: 13px;
+    height: 13px;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    color: $white;
+    font-weight: 600;
+  }
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+@media #{$mobile} {
+  th.mat-header-cell {
+    z-index: 0 !important;
+  }
+}

@@ -1,0 +1,10 @@
+.reset-password span {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.button-container {
+  text-align: right;
+  margin-top: 13px;
+}

@@ -1,0 +1,21 @@
+<p>Counter = {{user.counter}}</p>
+
+<button class="btn btn-warning" (click)="Increase()">Increase</button>
+<button class="btn btn-danger" (click)="Decrease()">Decrease</button>
+
+<div class="subject">
+  <p>Enter a name:<input type="text" [(ngModel)]="myTextVal"></p>
+  <button class="btn btn-secondary" (click)="sendTextValue()">Click Me</button>
+  <hello>{{myTextVal}}</hello>
+</div>
+
+<p class="center">{{title}}</p>
+
+<div class="route">
+  <button class="btn btn-primary" [routerLink]="['/lodash']">Lodash</button><br>
+  <button class="btn btn-primary" [routerLink]="['/test']">Test</button><br>
+  <button class="btn btn-primary" [routerLink]="['/test1']">Test1</button><br>
+  <button class="btn btn-primary" [routerLink]="['/studentdetails']">Student Details</button><br>
+  <button class="btn btn-primary" [routerLink]="['/testform']">Dynamic Form</button><br>
+</div>
+

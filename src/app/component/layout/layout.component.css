@@ -1,0 +1,17 @@
+.subject {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+}
+
+.center {
+  text-align: center;
+  padding-top: 10%;
+  font-size: 30px;
+  text-decoration: black;
+  text-transform: uppercase;
+  font-family: Lato;
+}
+.route button{
+  margin-top: 20px;
+}

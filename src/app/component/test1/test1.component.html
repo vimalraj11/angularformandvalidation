@@ -1,0 +1,6 @@
+<h2>{{name}}</h2>
+<p *ngFor="let message of message">
+  Message {{ message.message}}
+</p>
+
+<button (click)="addMessage()">Add Message</button>

@@ -1,0 +1,133 @@
+<div [formGroup]="form" [ngClass]="inputControl.cssClass" class="form-grid" autocomplete="new-password"
+  autocomplete="off" autocomplete="no">
+  <label *ngIf="inputControl.controlType != 'checkbox' && inputControl.required && inputControl.key !== 'firstName'"
+    [attr.for]="inputControl.key">
+    {{inputControl.label}}*</label>
+  <label *ngIf="inputControl.required && inputControl.key == 'firstName'" [attr.for]="inputControl.key">
+    {{inputControl.label}}</label>
+  <label *ngIf="inputControl.controlType != 'checkbox' && !inputControl.required" [attr.for]="inputControl.key">
+    {{inputControl.label}}</label>
+  <div class="input-wrapper" [ngSwitch]="inputControl.controlType">
+    <div *ngSwitchCase="'textbox'">
+      <div *ngIf="inputControl.key == 'contact'" class="contact">
+        <input [formControlName]="inputControl.key" [id]="inputControl.key" [type]="inputControl.type"
+          [disabled]="inputControl.isdisabled" [ngClass]="{'is-invalid': submitted && f.errors }" autocomplete="no"
+          autocomplete="new-password" autocomplete="off" [readonly]="inputControl.isReadonly">
+      </div>
+      <div *ngIf="inputControl.key == 'firstName' && inputControl.key !== 'firstNameprefix'" class="contact">
+        <input [formControlName]="inputControl.key" [id]="inputControl.key" [type]="inputControl.type"
+          [disabled]="inputControl.isdisabled" [ngClass]="{'is-invalid': submitted && f.errors }" autocomplete="no"
+          autocomplete="new-password" autocomplete="off" [readonly]="inputControl.isReadonly" class="w-70Per">
+      </div>
+      <div *ngIf="inputControl.key !== 'contact' && inputControl.key !== 'firstName'">
+        <input [formControlName]="inputControl.key" [id]="inputControl.key" [type]="inputControl.type"
+          [readonly]="inputControl.isReadonly" [disabled]="inputControl.isdisabled" autocomplete="new-password"
+          autocomplete="off" [ngClass]="{'is-invalid': submitted && f.errors }" autocomplete="no">
+      </div>
+    </div>
+    <div *ngSwitchCase="'fileupload'" class="file cursor">
+      <input #fileUpload [formControlName]="inputControl.key" [id]="inputControl.key" [type]="inputControl.type"
+        [readonly]="inputControl.isReadonly" [disabled]="inputControl.isdisabled"
+        [ngClass]="{'is-invalid': submitted && f.errors }" (change)="selectFile($event)" class="uploadpocopy">
+      <div *ngIf="file != ''">
+        <label class="flex">
+          <span *ngIf="file.name;else fileElseBlock">{{file.name}} </span>
+          <ng-template #fileElseBlock>
+            {{file}}
+            <a [href]="url" class="h-24" target="_blank">
+              <mat-icon *ngIf="url" color="primary" class="pointer">
+                download
+              </mat-icon>
+            </a>
+          </ng-template>
+          &nbsp;&nbsp;&nbsp;
+          <mat-icon *ngIf="!inputControl.isReadonly && (file.name || file.length>0)" color="primary" class="pointer"
+            (click)="removeFile(file)">clear
+          </mat-icon>
+        </label>
+      </div>
+      <span class="upload-btn" *ngIf="!inputControl.isReadonly" (click)='onClick()'>Upload File &nbsp;&nbsp;&nbsp;
+        <mat-icon color="primary" class="pointer">add</mat-icon>
+      </span>
+    </div>
+    <input *ngSwitchCase="'checkbox'" [formControlName]="inputControl.key" [id]="inputControl.key"
+      [checked]="inputControl.value" [type]="inputControl.type" [disabled]="inputControl.isdisabled"
+      [ngClass]="{'is-invalid': submitted && f.errors }">
+    <div *ngSwitchCase="'textarea'">
+      <textarea [hidden]="inputControl.toShow" autocomplete="new-password" [formControlName]="inputControl.key"
+        [id]="inputControl.key" [ngClass]="{'is-invalid': submitted && f.errors }" [readonly]="inputControl.isReadonly"
+        autocomplete="no" autocomplete="off"></textarea>
+    </div>
+    <label [innerHTML]="inputControl.label" *ngIf="inputControl.controlType == 'checkbox'"
+      [attr.for]="inputControl.key"></label>
+    <div *ngSwitchCase="'dropdown'">
+      <div *ngIf="inputControl.key == 'contryCode'" class="contact">
+        <mat-select [id]="inputControl.key" [formControlName]="inputControl.key"
+          [ngClass]="{'is-invalid': submitted && f.errors }"
+          [ngStyle]="{'border': submitted && f.errors?'1px solid #a94442':'' }"
+          (ngModelChange)="selectedOptionValue($event,inputControl.key)" [selected]="inputControl.key"
+          [(value)]="inputControl.value" [disabled]="inputControl.isReadonly">
+          <mat-select-trigger>{{inputControl.value}}</mat-select-trigger>
+          <mat-option *ngFor="let opt of contryCode" [value]="opt.key"> {{opt.name}} {{opt.key}}</mat-option>
+        </mat-select> &nbsp;&nbsp;
+      </div>
+      <div *ngIf="inputControl.key !== 'contryCode' && inputControl.key == 'firstNamePrefix'" class="contact">
+        <mat-select [id]="inputControl.key" [formControlName]="inputControl.key"
+          [ngClass]="{'is-invalid': submitted && f.errors }"
+          [ngStyle]="{'border': submitted && f.errors?'1px solid #a94442':'' }" [disabled]="inputControl.isReadonly"
+          (ngModelChange)="selectedOptionValue($event,inputControl.key)" [selected]="inputControl.key"
+          [(value)]="inputControl.value">
+          <mat-select-trigger>{{inputControl.value}}</mat-select-trigger>
+          <mat-option *ngFor="let opt of firstNameprefix" [value]="opt">{{opt}}</mat-option>
+        </mat-select> &nbsp;&nbsp;
+      </div>
+      <div
+        *ngIf="inputControl.key !== 'contryCode' && inputControl.key !== 'companyDetail'  && inputControl.key !== 'firstNamePrefix' && inputControl.key !== 'level'">
+        <mat-select [id]="inputControl.key" [formControlName]="inputControl.key"
+          [ngClass]="{'is-invalid': submitted && f.errors }"
+          [ngStyle]="{'border': submitted && f.errors?'1px solid #a94442':'' }" [disabled]="inputControl.isReadonly"
+          (ngModelChange)="selectedOptionValue($event,inputControl.key)" [selected]="inputControl.key">
+          <mat-option *ngFor="let opt of inputControl.options" [value]="opt.key">{{opt.value}}</mat-option>
+        </mat-select>
+      </div>
+      <div *ngIf="inputControl.key == 'companyDetail'">
+        <mat-select [id]="inputControl.key" [formControlName]="inputControl.key"
+          [ngClass]="{'is-invalid': submitted && f.errors }"
+          [ngStyle]="{'border': submitted && f.errors?'1px solid #a94442':'' }" [disabled]="inputControl.isReadonly"
+          (ngModelChange)="selectedOptionValue($event,inputControl.key)" [selected]="inputControl.key">
+          <mat-option *ngFor="let opt of inputControl.options" [value]="opt">{{opt.cName}}</mat-option>
+        </mat-select>
+      </div>
+      <div *ngIf="inputControl.key === 'level'">
+        <mat-select [id]="inputControl.key" [formControlName]="inputControl.key"
+          [ngClass]="{'is-invalid': submitted && f.errors }"
+          [ngStyle]="{'border': submitted && f.errors?'1px solid #a94442':'' }" [disabled]="inputControl.isReadonly"
+          (ngModelChange)="selectedOptionValue($event,inputControl.key)" [selected]="inputControl.key">
+          <mat-option *ngFor="let opt of inputControl.options" [value]="opt.value">{{opt.value}}</mat-option>
+        </mat-select>
+      </div>
+    </div>  
+    <div *ngSwitchCase="'dateInputBox'" class="dateMat">
+      <mat-form-field>
+        <input matInput [matDatepicker]="formControlName" [formControlName]="inputControl.key" [id]="inputControl.key"
+          class="dateField" [ngClass]="{'is-invalid': submitted && f.errors}" value={{inputControl.value}}
+          [disabled]="true" [ngClass]="inputControl.isReadonly ? '' :'date-type-hide'">
+        <mat-datepicker-toggle matSuffix [for]="formControlName" startView="year"></mat-datepicker-toggle>
+        <mat-datepicker #formControlName startView="year" [disabled]="inputControl.isReadonly"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'color'">
+      <input [formControlName]="inputControl.key" [id]="inputControl.key" [type]="inputControl.type"
+        [disabled]="inputControl.isdisabled" [ngClass]="{'is-invalid': submitted && f.errors }">
+    </div>
+    <div *ngSwitchCase="'password'" class="passwords">
+      <input [formControlName]="inputControl.key" [id]="inputControl.key" [type]="hide ? 'password': 'text'"
+        [disabled]="inputControl.isdisabled" [ngClass]="{'is-invalid': submitted && f.errors }"
+        [readonly]="inputControl.isReadonly">
+      <mat-icon class="icon-passwords" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </div>
+  </div>
+  <div *ngIf="submitted && f.errors" class="errorMessage">
+    <div *ngIf="f.errors.required">{{inputControl.label}} is required</div>
+  </div>
+</div>
